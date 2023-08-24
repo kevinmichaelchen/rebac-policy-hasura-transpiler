@@ -1,12 +1,16 @@
 package main
 
 import (
+	_ "embed"
 	"github.com/graphql-go/graphql/language/ast"
 	"github.com/graphql-go/graphql/language/parser"
 	"github.com/sanity-io/litter"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
+
+//go:embed test.graphql
+var s string
 
 func TestParse(t *testing.T) {
 	astDoc, err := parser.Parse(parser.ParseParams{

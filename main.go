@@ -4,9 +4,6 @@ import (
 	_ "embed"
 )
 
-//go:embed test.graphql
-var s string
-
 func main() {
 
 }
