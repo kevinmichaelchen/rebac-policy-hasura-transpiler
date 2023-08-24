@@ -1,0 +1,31 @@
+{
+  "type": "array",
+  "length": {
+    "type": "number",
+    "range": {
+      "low": 0,
+      "high": 2,
+      "step": 1
+    },
+    "subtype": "u64"
+  },
+  "content": {
+    "type": "object",
+    "id": {
+      "type": "unique",
+      "algorithm": {
+        "Hash": {
+          "retries": null
+        }
+      },
+      "content": {
+        "type": "string",
+        "uuid": null
+      }
+    },
+    "org_unit_id": {
+      "type": "same_as",
+      "ref": "org_unit.content.id"
+    }
+  }
+}

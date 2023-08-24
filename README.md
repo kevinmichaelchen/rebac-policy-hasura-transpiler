@@ -53,6 +53,30 @@ this kind of indefinite, arbitrarily long path length.
 While not a perfect solution, this CLI lets you specify the number of levels
 that the Hasura rules should traverse.
 
+## Tasks
+
+### introspect
+
+Introspect Hasura's schema and update the local `hasura.sdl.graphqls` file.
+
+```
+npx --yes \
+  graphqurl -- \
+  http://localhost:8080/v1/graphql \
+  -H 'x-hasura-admin-secret: myadminsecretkey' \
+  --introspect > hasura.sdl.graphqls
+```
+
+### synth_import
+
+Create JSON schema files for Synth data generation.
+
+```
+synth import \
+  --from postgres://postgres:postgrespassword@localhost:15432/postgres \
+  synth_workspace
+```
+
 [hasura-perms]: https://hasura.io/docs/latest/auth/authorization/permissions/
 [permit-io]: https://permit.io
 [permit-api]:
