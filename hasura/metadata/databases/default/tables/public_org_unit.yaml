@@ -1,0 +1,37 @@
+table:
+  name: org_unit
+  schema: public
+object_relationships:
+  - name: parent
+    using:
+      manual_configuration:
+        column_mapping:
+          parent_id: id
+        insertion_order: null
+        remote_table:
+          name: org_unit
+          schema: public
+array_relationships:
+  - name: children
+    using:
+      manual_configuration:
+        column_mapping:
+          id: parent_id
+        insertion_order: null
+        remote_table:
+          name: org_unit
+          schema: public
+  - name: classrooms
+    using:
+      foreign_key_constraint_on:
+        column: org_unit_id
+        table:
+          name: classroom
+          schema: public
+  - name: teachers
+    using:
+      foreign_key_constraint_on:
+        column: org_unit_id
+        table:
+          name: teacher
+          schema: public

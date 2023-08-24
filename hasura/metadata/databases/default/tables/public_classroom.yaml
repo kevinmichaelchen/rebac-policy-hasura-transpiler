@@ -1,0 +1,23 @@
+table:
+  name: classroom
+  schema: public
+object_relationships:
+  - name: orgUnit
+    using:
+      manual_configuration:
+        column_mapping:
+          org_unit_id: id
+        insertion_order: null
+        remote_table:
+          name: org_unit
+          schema: public
+array_relationships:
+  - name: teachers
+    using:
+      manual_configuration:
+        column_mapping:
+          id: classroom_id
+        insertion_order: null
+        remote_table:
+          name: teacher_classroom
+          schema: public

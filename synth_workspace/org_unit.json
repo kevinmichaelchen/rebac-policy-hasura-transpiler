@@ -1,0 +1,47 @@
+{
+  "type": "array",
+  "length": {
+    "type": "number",
+    "range": {
+      "low": 0,
+      "high": 10,
+      "step": 1
+    },
+    "subtype": "u64"
+  },
+  "content": {
+    "type": "object",
+    "id": {
+      "type": "unique",
+      "algorithm": {
+        "Hash": {
+          "retries": null
+        }
+      },
+      "content": {
+        "type": "string",
+        "uuid": null
+      }
+    },
+    "name": {
+      "type": "string",
+      "faker": {
+        "generator": "company_name"
+      }
+    },
+    "parent_id": {
+      "type": "one_of",
+      "variants": [
+        {
+          "weight": 0,
+          "type": "same_as",
+          "ref": "org_unit.content.id"
+        },
+        {
+          "weight": 1.0,
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

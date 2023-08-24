@@ -1,0 +1,1896 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+columns and relationships of "classroom"
+"""
+type Classroom {
+  id: uuid!
+
+  """An object relationship"""
+  orgUnit: OrgUnit
+  orgUnitId: uuid!
+
+  """An array relationship"""
+  teachers(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): [TeacherClassroom!]!
+
+  """An aggregate relationship"""
+  teachersAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): TeacherClassroomAggregate!
+}
+
+"""
+aggregated selection of "classroom"
+"""
+type ClassroomAggregate {
+  aggregate: ClassroomAggregateFields
+  nodes: [Classroom!]!
+}
+
+input ClassroomAggregateBoolExp {
+  count: classroomAggregateBoolExpCount
+}
+
+"""
+aggregate fields of "classroom"
+"""
+type ClassroomAggregateFields {
+  count(columns: [ClassroomSelectColumn!], distinct: Boolean): Int!
+  max: ClassroomMaxFields
+  min: ClassroomMinFields
+}
+
+"""
+order by aggregate values of table "classroom"
+"""
+input ClassroomAggregateOrderBy {
+  count: OrderBy
+  max: ClassroomMaxOrderBy
+  min: ClassroomMinOrderBy
+}
+
+"""
+input type for inserting array relation for remote table "classroom"
+"""
+input ClassroomArrRelInsertInput {
+  data: [ClassroomInsertInput!]!
+
+  """upsert condition"""
+  onConflict: ClassroomOnConflict
+}
+
+"""
+Boolean expression to filter rows from the table "classroom". All fields are combined with a logical 'AND'.
+"""
+input ClassroomBoolExp {
+  _and: [ClassroomBoolExp!]
+  _not: ClassroomBoolExp
+  _or: [ClassroomBoolExp!]
+  id: UuidComparisonExp
+  orgUnit: OrgUnitBoolExp
+  orgUnitId: UuidComparisonExp
+  teachers: TeacherClassroomBoolExp
+  teachersAggregate: TeacherClassroomAggregateBoolExp
+}
+
+"""
+unique or primary key constraints on table "classroom"
+"""
+enum ClassroomConstraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  classroom_pkey
+}
+
+"""
+input type for inserting data into table "classroom"
+"""
+input ClassroomInsertInput {
+  id: uuid
+  orgUnit: OrgUnitObjRelInsertInput
+  orgUnitId: uuid
+  teachers: TeacherClassroomArrRelInsertInput
+}
+
+"""aggregate max on columns"""
+type ClassroomMaxFields {
+  id: uuid
+  orgUnitId: uuid
+}
+
+"""
+order by max() on columns of table "classroom"
+"""
+input ClassroomMaxOrderBy {
+  id: OrderBy
+  orgUnitId: OrderBy
+}
+
+"""aggregate min on columns"""
+type ClassroomMinFields {
+  id: uuid
+  orgUnitId: uuid
+}
+
+"""
+order by min() on columns of table "classroom"
+"""
+input ClassroomMinOrderBy {
+  id: OrderBy
+  orgUnitId: OrderBy
+}
+
+"""
+response of any mutation on the table "classroom"
+"""
+type ClassroomMutationResponse {
+  """number of rows affected by the mutation"""
+  affectedRows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Classroom!]!
+}
+
+"""
+input type for inserting object relation for remote table "classroom"
+"""
+input ClassroomObjRelInsertInput {
+  data: ClassroomInsertInput!
+
+  """upsert condition"""
+  onConflict: ClassroomOnConflict
+}
+
+"""
+on_conflict condition type for table "classroom"
+"""
+input ClassroomOnConflict {
+  constraint: ClassroomConstraint!
+  updateColumns: [ClassroomUpdateColumn!]! = []
+  where: ClassroomBoolExp
+}
+
+"""Ordering options when selecting data from "classroom"."""
+input ClassroomOrderBy {
+  id: OrderBy
+  orgUnit: OrgUnitOrderBy
+  orgUnitId: OrderBy
+  teachersAggregate: TeacherClassroomAggregateOrderBy
+}
+
+"""primary key columns input for table: classroom"""
+input ClassroomPkColumnsInput {
+  id: uuid!
+}
+
+"""
+select columns of table "classroom"
+"""
+enum ClassroomSelectColumn {
+  """column name"""
+  id
+
+  """column name"""
+  orgUnitId
+}
+
+"""
+input type for updating data in table "classroom"
+"""
+input ClassroomSetInput {
+  id: uuid
+  orgUnitId: uuid
+}
+
+"""
+Streaming cursor of the table "classroom"
+"""
+input ClassroomStreamCursorInput {
+  """Stream column input with initial value"""
+  initialValue: ClassroomStreamCursorValueInput!
+
+  """cursor ordering"""
+  ordering: CursorOrdering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input ClassroomStreamCursorValueInput {
+  id: uuid
+  orgUnitId: uuid
+}
+
+"""
+update columns of table "classroom"
+"""
+enum ClassroomUpdateColumn {
+  """column name"""
+  id
+
+  """column name"""
+  orgUnitId
+}
+
+input ClassroomUpdates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: ClassroomSetInput
+
+  """filter the rows which have to be updated"""
+  where: ClassroomBoolExp!
+}
+
+"""ordering argument of a cursor"""
+enum CursorOrdering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input IntComparisonExp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _isNull: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""column ordering options"""
+enum OrderBy {
+  """in ascending order, nulls last"""
+  ASC
+
+  """in ascending order, nulls first"""
+  ASC_NULLS_FIRST
+
+  """in ascending order, nulls last"""
+  ASC_NULLS_LAST
+
+  """in descending order, nulls first"""
+  DESC
+
+  """in descending order, nulls first"""
+  DESC_NULLS_FIRST
+
+  """in descending order, nulls last"""
+  DESC_NULLS_LAST
+}
+
+"""
+columns and relationships of "org_unit"
+"""
+type OrgUnit {
+  """An array relationship"""
+  children(
+    """distinct select on columns"""
+    distinctOn: [OrgUnitSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [OrgUnitOrderBy!]
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): [OrgUnit!]!
+
+  """An aggregate relationship"""
+  childrenAggregate(
+    """distinct select on columns"""
+    distinctOn: [OrgUnitSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [OrgUnitOrderBy!]
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): OrgUnitAggregate!
+
+  """An array relationship"""
+  classrooms(
+    """distinct select on columns"""
+    distinctOn: [ClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): [Classroom!]!
+
+  """An aggregate relationship"""
+  classroomsAggregate(
+    """distinct select on columns"""
+    distinctOn: [ClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): ClassroomAggregate!
+  id: uuid!
+  name: String!
+
+  """An object relationship"""
+  parent: OrgUnit
+  parentId: uuid
+
+  """An array relationship"""
+  teachers(
+    """distinct select on columns"""
+    distinctOn: [TeacherSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): [Teacher!]!
+
+  """An aggregate relationship"""
+  teachersAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): TeacherAggregate!
+}
+
+"""
+aggregated selection of "org_unit"
+"""
+type OrgUnitAggregate {
+  aggregate: OrgUnitAggregateFields
+  nodes: [OrgUnit!]!
+}
+
+input OrgUnitAggregateBoolExp {
+  count: orgUnitAggregateBoolExpCount
+}
+
+"""
+aggregate fields of "org_unit"
+"""
+type OrgUnitAggregateFields {
+  count(columns: [OrgUnitSelectColumn!], distinct: Boolean): Int!
+  max: OrgUnitMaxFields
+  min: OrgUnitMinFields
+}
+
+"""
+order by aggregate values of table "org_unit"
+"""
+input OrgUnitAggregateOrderBy {
+  count: OrderBy
+  max: OrgUnitMaxOrderBy
+  min: OrgUnitMinOrderBy
+}
+
+"""
+input type for inserting array relation for remote table "org_unit"
+"""
+input OrgUnitArrRelInsertInput {
+  data: [OrgUnitInsertInput!]!
+
+  """upsert condition"""
+  onConflict: OrgUnitOnConflict
+}
+
+"""
+Boolean expression to filter rows from the table "org_unit". All fields are combined with a logical 'AND'.
+"""
+input OrgUnitBoolExp {
+  _and: [OrgUnitBoolExp!]
+  _not: OrgUnitBoolExp
+  _or: [OrgUnitBoolExp!]
+  children: OrgUnitBoolExp
+  childrenAggregate: OrgUnitAggregateBoolExp
+  classrooms: ClassroomBoolExp
+  classroomsAggregate: ClassroomAggregateBoolExp
+  id: UuidComparisonExp
+  name: StringComparisonExp
+  parent: OrgUnitBoolExp
+  parentId: UuidComparisonExp
+  teachers: TeacherBoolExp
+  teachersAggregate: TeacherAggregateBoolExp
+}
+
+"""
+unique or primary key constraints on table "org_unit"
+"""
+enum OrgUnitConstraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  org_unit_pkey
+}
+
+"""
+input type for inserting data into table "org_unit"
+"""
+input OrgUnitInsertInput {
+  children: OrgUnitArrRelInsertInput
+  classrooms: ClassroomArrRelInsertInput
+  id: uuid
+  name: String
+  parent: OrgUnitObjRelInsertInput
+  parentId: uuid
+  teachers: TeacherArrRelInsertInput
+}
+
+"""aggregate max on columns"""
+type OrgUnitMaxFields {
+  id: uuid
+  name: String
+  parentId: uuid
+}
+
+"""
+order by max() on columns of table "org_unit"
+"""
+input OrgUnitMaxOrderBy {
+  id: OrderBy
+  name: OrderBy
+  parentId: OrderBy
+}
+
+"""aggregate min on columns"""
+type OrgUnitMinFields {
+  id: uuid
+  name: String
+  parentId: uuid
+}
+
+"""
+order by min() on columns of table "org_unit"
+"""
+input OrgUnitMinOrderBy {
+  id: OrderBy
+  name: OrderBy
+  parentId: OrderBy
+}
+
+"""
+response of any mutation on the table "org_unit"
+"""
+type OrgUnitMutationResponse {
+  """number of rows affected by the mutation"""
+  affectedRows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [OrgUnit!]!
+}
+
+"""
+input type for inserting object relation for remote table "org_unit"
+"""
+input OrgUnitObjRelInsertInput {
+  data: OrgUnitInsertInput!
+
+  """upsert condition"""
+  onConflict: OrgUnitOnConflict
+}
+
+"""
+on_conflict condition type for table "org_unit"
+"""
+input OrgUnitOnConflict {
+  constraint: OrgUnitConstraint!
+  updateColumns: [OrgUnitUpdateColumn!]! = []
+  where: OrgUnitBoolExp
+}
+
+"""Ordering options when selecting data from "org_unit"."""
+input OrgUnitOrderBy {
+  childrenAggregate: OrgUnitAggregateOrderBy
+  classroomsAggregate: ClassroomAggregateOrderBy
+  id: OrderBy
+  name: OrderBy
+  parent: OrgUnitOrderBy
+  parentId: OrderBy
+  teachersAggregate: TeacherAggregateOrderBy
+}
+
+"""primary key columns input for table: org_unit"""
+input OrgUnitPkColumnsInput {
+  id: uuid!
+}
+
+"""
+select columns of table "org_unit"
+"""
+enum OrgUnitSelectColumn {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  parentId
+}
+
+"""
+input type for updating data in table "org_unit"
+"""
+input OrgUnitSetInput {
+  id: uuid
+  name: String
+  parentId: uuid
+}
+
+"""
+Streaming cursor of the table "org_unit"
+"""
+input OrgUnitStreamCursorInput {
+  """Stream column input with initial value"""
+  initialValue: OrgUnitStreamCursorValueInput!
+
+  """cursor ordering"""
+  ordering: CursorOrdering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input OrgUnitStreamCursorValueInput {
+  id: uuid
+  name: String
+  parentId: uuid
+}
+
+"""
+update columns of table "org_unit"
+"""
+enum OrgUnitUpdateColumn {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  parentId
+}
+
+input OrgUnitUpdates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: OrgUnitSetInput
+
+  """filter the rows which have to be updated"""
+  where: OrgUnitBoolExp!
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input StringComparisonExp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _isNull: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "teacher"
+"""
+type Teacher {
+  """An array relationship"""
+  classrooms(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): [TeacherClassroom!]!
+
+  """An aggregate relationship"""
+  classroomsAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): TeacherClassroomAggregate!
+  email: String!
+  id: uuid!
+  name: String!
+
+  """An object relationship"""
+  orgUnit: OrgUnit
+  orgUnitId: uuid!
+}
+
+"""
+aggregated selection of "teacher"
+"""
+type TeacherAggregate {
+  aggregate: TeacherAggregateFields
+  nodes: [Teacher!]!
+}
+
+input TeacherAggregateBoolExp {
+  count: teacherAggregateBoolExpCount
+}
+
+"""
+aggregate fields of "teacher"
+"""
+type TeacherAggregateFields {
+  count(columns: [TeacherSelectColumn!], distinct: Boolean): Int!
+  max: TeacherMaxFields
+  min: TeacherMinFields
+}
+
+"""
+order by aggregate values of table "teacher"
+"""
+input TeacherAggregateOrderBy {
+  count: OrderBy
+  max: TeacherMaxOrderBy
+  min: TeacherMinOrderBy
+}
+
+"""
+input type for inserting array relation for remote table "teacher"
+"""
+input TeacherArrRelInsertInput {
+  data: [TeacherInsertInput!]!
+
+  """upsert condition"""
+  onConflict: TeacherOnConflict
+}
+
+"""
+Boolean expression to filter rows from the table "teacher". All fields are combined with a logical 'AND'.
+"""
+input TeacherBoolExp {
+  _and: [TeacherBoolExp!]
+  _not: TeacherBoolExp
+  _or: [TeacherBoolExp!]
+  classrooms: TeacherClassroomBoolExp
+  classroomsAggregate: TeacherClassroomAggregateBoolExp
+  email: StringComparisonExp
+  id: UuidComparisonExp
+  name: StringComparisonExp
+  orgUnit: OrgUnitBoolExp
+  orgUnitId: UuidComparisonExp
+}
+
+"""
+columns and relationships of "teacher_classroom"
+"""
+type TeacherClassroom {
+  """An object relationship"""
+  classroom: Classroom!
+  classroomId: uuid!
+
+  """An object relationship"""
+  teacher: Teacher!
+  teacherId: uuid!
+}
+
+"""
+aggregated selection of "teacher_classroom"
+"""
+type TeacherClassroomAggregate {
+  aggregate: TeacherClassroomAggregateFields
+  nodes: [TeacherClassroom!]!
+}
+
+input TeacherClassroomAggregateBoolExp {
+  count: teacherClassroomAggregateBoolExpCount
+}
+
+"""
+aggregate fields of "teacher_classroom"
+"""
+type TeacherClassroomAggregateFields {
+  count(columns: [TeacherClassroomSelectColumn!], distinct: Boolean): Int!
+  max: TeacherClassroomMaxFields
+  min: TeacherClassroomMinFields
+}
+
+"""
+order by aggregate values of table "teacher_classroom"
+"""
+input TeacherClassroomAggregateOrderBy {
+  count: OrderBy
+  max: TeacherClassroomMaxOrderBy
+  min: TeacherClassroomMinOrderBy
+}
+
+"""
+input type for inserting array relation for remote table "teacher_classroom"
+"""
+input TeacherClassroomArrRelInsertInput {
+  data: [TeacherClassroomInsertInput!]!
+
+  """upsert condition"""
+  onConflict: TeacherClassroomOnConflict
+}
+
+"""
+Boolean expression to filter rows from the table "teacher_classroom". All fields are combined with a logical 'AND'.
+"""
+input TeacherClassroomBoolExp {
+  _and: [TeacherClassroomBoolExp!]
+  _not: TeacherClassroomBoolExp
+  _or: [TeacherClassroomBoolExp!]
+  classroom: ClassroomBoolExp
+  classroomId: UuidComparisonExp
+  teacher: TeacherBoolExp
+  teacherId: UuidComparisonExp
+}
+
+"""
+unique or primary key constraints on table "teacher_classroom"
+"""
+enum TeacherClassroomConstraint {
+  """
+  unique or primary key constraint on columns "teacher_id", "classroom_id"
+  """
+  teacher_classroom_pkey
+}
+
+"""
+input type for inserting data into table "teacher_classroom"
+"""
+input TeacherClassroomInsertInput {
+  classroom: ClassroomObjRelInsertInput
+  classroomId: uuid
+  teacher: TeacherObjRelInsertInput
+  teacherId: uuid
+}
+
+"""aggregate max on columns"""
+type TeacherClassroomMaxFields {
+  classroomId: uuid
+  teacherId: uuid
+}
+
+"""
+order by max() on columns of table "teacher_classroom"
+"""
+input TeacherClassroomMaxOrderBy {
+  classroomId: OrderBy
+  teacherId: OrderBy
+}
+
+"""aggregate min on columns"""
+type TeacherClassroomMinFields {
+  classroomId: uuid
+  teacherId: uuid
+}
+
+"""
+order by min() on columns of table "teacher_classroom"
+"""
+input TeacherClassroomMinOrderBy {
+  classroomId: OrderBy
+  teacherId: OrderBy
+}
+
+"""
+response of any mutation on the table "teacher_classroom"
+"""
+type TeacherClassroomMutationResponse {
+  """number of rows affected by the mutation"""
+  affectedRows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [TeacherClassroom!]!
+}
+
+"""
+on_conflict condition type for table "teacher_classroom"
+"""
+input TeacherClassroomOnConflict {
+  constraint: TeacherClassroomConstraint!
+  updateColumns: [TeacherClassroomUpdateColumn!]! = []
+  where: TeacherClassroomBoolExp
+}
+
+"""Ordering options when selecting data from "teacher_classroom"."""
+input TeacherClassroomOrderBy {
+  classroom: ClassroomOrderBy
+  classroomId: OrderBy
+  teacher: TeacherOrderBy
+  teacherId: OrderBy
+}
+
+"""primary key columns input for table: teacher_classroom"""
+input TeacherClassroomPkColumnsInput {
+  classroomId: uuid!
+  teacherId: uuid!
+}
+
+"""
+select columns of table "teacher_classroom"
+"""
+enum TeacherClassroomSelectColumn {
+  """column name"""
+  classroomId
+
+  """column name"""
+  teacherId
+}
+
+"""
+input type for updating data in table "teacher_classroom"
+"""
+input TeacherClassroomSetInput {
+  classroomId: uuid
+  teacherId: uuid
+}
+
+"""
+Streaming cursor of the table "teacher_classroom"
+"""
+input TeacherClassroomStreamCursorInput {
+  """Stream column input with initial value"""
+  initialValue: TeacherClassroomStreamCursorValueInput!
+
+  """cursor ordering"""
+  ordering: CursorOrdering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input TeacherClassroomStreamCursorValueInput {
+  classroomId: uuid
+  teacherId: uuid
+}
+
+"""
+update columns of table "teacher_classroom"
+"""
+enum TeacherClassroomUpdateColumn {
+  """column name"""
+  classroomId
+
+  """column name"""
+  teacherId
+}
+
+input TeacherClassroomUpdates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: TeacherClassroomSetInput
+
+  """filter the rows which have to be updated"""
+  where: TeacherClassroomBoolExp!
+}
+
+"""
+unique or primary key constraints on table "teacher"
+"""
+enum TeacherConstraint {
+  """
+  unique or primary key constraint on columns "email"
+  """
+  teacher_email_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  teacher_pkey
+}
+
+"""
+input type for inserting data into table "teacher"
+"""
+input TeacherInsertInput {
+  classrooms: TeacherClassroomArrRelInsertInput
+  email: String
+  id: uuid
+  name: String
+  orgUnit: OrgUnitObjRelInsertInput
+  orgUnitId: uuid
+}
+
+"""aggregate max on columns"""
+type TeacherMaxFields {
+  email: String
+  id: uuid
+  name: String
+  orgUnitId: uuid
+}
+
+"""
+order by max() on columns of table "teacher"
+"""
+input TeacherMaxOrderBy {
+  email: OrderBy
+  id: OrderBy
+  name: OrderBy
+  orgUnitId: OrderBy
+}
+
+"""aggregate min on columns"""
+type TeacherMinFields {
+  email: String
+  id: uuid
+  name: String
+  orgUnitId: uuid
+}
+
+"""
+order by min() on columns of table "teacher"
+"""
+input TeacherMinOrderBy {
+  email: OrderBy
+  id: OrderBy
+  name: OrderBy
+  orgUnitId: OrderBy
+}
+
+"""
+response of any mutation on the table "teacher"
+"""
+type TeacherMutationResponse {
+  """number of rows affected by the mutation"""
+  affectedRows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Teacher!]!
+}
+
+"""
+input type for inserting object relation for remote table "teacher"
+"""
+input TeacherObjRelInsertInput {
+  data: TeacherInsertInput!
+
+  """upsert condition"""
+  onConflict: TeacherOnConflict
+}
+
+"""
+on_conflict condition type for table "teacher"
+"""
+input TeacherOnConflict {
+  constraint: TeacherConstraint!
+  updateColumns: [TeacherUpdateColumn!]! = []
+  where: TeacherBoolExp
+}
+
+"""Ordering options when selecting data from "teacher"."""
+input TeacherOrderBy {
+  classroomsAggregate: TeacherClassroomAggregateOrderBy
+  email: OrderBy
+  id: OrderBy
+  name: OrderBy
+  orgUnit: OrgUnitOrderBy
+  orgUnitId: OrderBy
+}
+
+"""primary key columns input for table: teacher"""
+input TeacherPkColumnsInput {
+  id: uuid!
+}
+
+"""
+select columns of table "teacher"
+"""
+enum TeacherSelectColumn {
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  orgUnitId
+}
+
+"""
+input type for updating data in table "teacher"
+"""
+input TeacherSetInput {
+  email: String
+  id: uuid
+  name: String
+  orgUnitId: uuid
+}
+
+"""
+Streaming cursor of the table "teacher"
+"""
+input TeacherStreamCursorInput {
+  """Stream column input with initial value"""
+  initialValue: TeacherStreamCursorValueInput!
+
+  """cursor ordering"""
+  ordering: CursorOrdering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input TeacherStreamCursorValueInput {
+  email: String
+  id: uuid
+  name: String
+  orgUnitId: uuid
+}
+
+"""
+update columns of table "teacher"
+"""
+enum TeacherUpdateColumn {
+  """column name"""
+  email
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  orgUnitId
+}
+
+input TeacherUpdates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: TeacherSetInput
+
+  """filter the rows which have to be updated"""
+  where: TeacherBoolExp!
+}
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input UuidComparisonExp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _isNull: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+
+input classroomAggregateBoolExpCount {
+  arguments: [ClassroomSelectColumn!]
+  distinct: Boolean
+  filter: ClassroomBoolExp
+  predicate: IntComparisonExp!
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "classroom"
+  """
+  deleteClassroom(
+    """filter the rows which have to be deleted"""
+    where: ClassroomBoolExp!
+  ): ClassroomMutationResponse
+
+  """
+  delete single row from the table: "classroom"
+  """
+  deleteClassroomByPk(id: uuid!): Classroom
+
+  """
+  delete data from the table: "org_unit"
+  """
+  deleteOrgUnit(
+    """filter the rows which have to be deleted"""
+    where: OrgUnitBoolExp!
+  ): OrgUnitMutationResponse
+
+  """
+  delete single row from the table: "org_unit"
+  """
+  deleteOrgUnitByPk(id: uuid!): OrgUnit
+
+  """
+  delete data from the table: "teacher"
+  """
+  deleteTeacher(
+    """filter the rows which have to be deleted"""
+    where: TeacherBoolExp!
+  ): TeacherMutationResponse
+
+  """
+  delete single row from the table: "teacher"
+  """
+  deleteTeacherByPk(id: uuid!): Teacher
+
+  """
+  delete data from the table: "teacher_classroom"
+  """
+  deleteTeacherClassroom(
+    """filter the rows which have to be deleted"""
+    where: TeacherClassroomBoolExp!
+  ): TeacherClassroomMutationResponse
+
+  """
+  delete single row from the table: "teacher_classroom"
+  """
+  deleteTeacherClassroomByPk(classroomId: uuid!, teacherId: uuid!): TeacherClassroom
+
+  """
+  insert data into the table: "classroom"
+  """
+  insertClassroom(
+    """the rows to be inserted"""
+    objects: [ClassroomInsertInput!]!
+
+    """upsert condition"""
+    onConflict: ClassroomOnConflict
+  ): ClassroomMutationResponse
+
+  """
+  insert a single row into the table: "classroom"
+  """
+  insertClassroomOne(
+    """the row to be inserted"""
+    object: ClassroomInsertInput!
+
+    """upsert condition"""
+    onConflict: ClassroomOnConflict
+  ): Classroom
+
+  """
+  insert data into the table: "org_unit"
+  """
+  insertOrgUnit(
+    """the rows to be inserted"""
+    objects: [OrgUnitInsertInput!]!
+
+    """upsert condition"""
+    onConflict: OrgUnitOnConflict
+  ): OrgUnitMutationResponse
+
+  """
+  insert a single row into the table: "org_unit"
+  """
+  insertOrgUnitOne(
+    """the row to be inserted"""
+    object: OrgUnitInsertInput!
+
+    """upsert condition"""
+    onConflict: OrgUnitOnConflict
+  ): OrgUnit
+
+  """
+  insert data into the table: "teacher"
+  """
+  insertTeacher(
+    """the rows to be inserted"""
+    objects: [TeacherInsertInput!]!
+
+    """upsert condition"""
+    onConflict: TeacherOnConflict
+  ): TeacherMutationResponse
+
+  """
+  insert data into the table: "teacher_classroom"
+  """
+  insertTeacherClassroom(
+    """the rows to be inserted"""
+    objects: [TeacherClassroomInsertInput!]!
+
+    """upsert condition"""
+    onConflict: TeacherClassroomOnConflict
+  ): TeacherClassroomMutationResponse
+
+  """
+  insert a single row into the table: "teacher_classroom"
+  """
+  insertTeacherClassroomOne(
+    """the row to be inserted"""
+    object: TeacherClassroomInsertInput!
+
+    """upsert condition"""
+    onConflict: TeacherClassroomOnConflict
+  ): TeacherClassroom
+
+  """
+  insert a single row into the table: "teacher"
+  """
+  insertTeacherOne(
+    """the row to be inserted"""
+    object: TeacherInsertInput!
+
+    """upsert condition"""
+    onConflict: TeacherOnConflict
+  ): Teacher
+
+  """
+  update data of the table: "classroom"
+  """
+  updateClassroom(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ClassroomSetInput
+
+    """filter the rows which have to be updated"""
+    where: ClassroomBoolExp!
+  ): ClassroomMutationResponse
+
+  """
+  update single row of the table: "classroom"
+  """
+  updateClassroomByPk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ClassroomSetInput
+    pkColumns: ClassroomPkColumnsInput!
+  ): Classroom
+
+  """
+  update multiples rows of table: "classroom"
+  """
+  updateClassroomMany(
+    """updates to execute, in order"""
+    updates: [ClassroomUpdates!]!
+  ): [ClassroomMutationResponse]
+
+  """
+  update data of the table: "org_unit"
+  """
+  updateOrgUnit(
+    """sets the columns of the filtered rows to the given values"""
+    _set: OrgUnitSetInput
+
+    """filter the rows which have to be updated"""
+    where: OrgUnitBoolExp!
+  ): OrgUnitMutationResponse
+
+  """
+  update single row of the table: "org_unit"
+  """
+  updateOrgUnitByPk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: OrgUnitSetInput
+    pkColumns: OrgUnitPkColumnsInput!
+  ): OrgUnit
+
+  """
+  update multiples rows of table: "org_unit"
+  """
+  updateOrgUnitMany(
+    """updates to execute, in order"""
+    updates: [OrgUnitUpdates!]!
+  ): [OrgUnitMutationResponse]
+
+  """
+  update data of the table: "teacher"
+  """
+  updateTeacher(
+    """sets the columns of the filtered rows to the given values"""
+    _set: TeacherSetInput
+
+    """filter the rows which have to be updated"""
+    where: TeacherBoolExp!
+  ): TeacherMutationResponse
+
+  """
+  update single row of the table: "teacher"
+  """
+  updateTeacherByPk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: TeacherSetInput
+    pkColumns: TeacherPkColumnsInput!
+  ): Teacher
+
+  """
+  update data of the table: "teacher_classroom"
+  """
+  updateTeacherClassroom(
+    """sets the columns of the filtered rows to the given values"""
+    _set: TeacherClassroomSetInput
+
+    """filter the rows which have to be updated"""
+    where: TeacherClassroomBoolExp!
+  ): TeacherClassroomMutationResponse
+
+  """
+  update single row of the table: "teacher_classroom"
+  """
+  updateTeacherClassroomByPk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: TeacherClassroomSetInput
+    pkColumns: TeacherClassroomPkColumnsInput!
+  ): TeacherClassroom
+
+  """
+  update multiples rows of table: "teacher_classroom"
+  """
+  updateTeacherClassroomMany(
+    """updates to execute, in order"""
+    updates: [TeacherClassroomUpdates!]!
+  ): [TeacherClassroomMutationResponse]
+
+  """
+  update multiples rows of table: "teacher"
+  """
+  updateTeacherMany(
+    """updates to execute, in order"""
+    updates: [TeacherUpdates!]!
+  ): [TeacherMutationResponse]
+}
+
+input orgUnitAggregateBoolExpCount {
+  arguments: [OrgUnitSelectColumn!]
+  distinct: Boolean
+  filter: OrgUnitBoolExp
+  predicate: IntComparisonExp!
+}
+
+type query_root {
+  """
+  fetch data from the table: "classroom"
+  """
+  classroom(
+    """distinct select on columns"""
+    distinctOn: [ClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): [Classroom!]!
+
+  """
+  fetch aggregated fields from the table: "classroom"
+  """
+  classroomAggregate(
+    """distinct select on columns"""
+    distinctOn: [ClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): ClassroomAggregate!
+
+  """fetch data from the table: "classroom" using primary key columns"""
+  classroomByPk(id: uuid!): Classroom
+
+  """
+  fetch data from the table: "org_unit"
+  """
+  orgUnit(
+    """distinct select on columns"""
+    distinctOn: [OrgUnitSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [OrgUnitOrderBy!]
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): [OrgUnit!]!
+
+  """
+  fetch aggregated fields from the table: "org_unit"
+  """
+  orgUnitAggregate(
+    """distinct select on columns"""
+    distinctOn: [OrgUnitSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [OrgUnitOrderBy!]
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): OrgUnitAggregate!
+
+  """fetch data from the table: "org_unit" using primary key columns"""
+  orgUnitByPk(id: uuid!): OrgUnit
+
+  """
+  fetch data from the table: "teacher"
+  """
+  teacher(
+    """distinct select on columns"""
+    distinctOn: [TeacherSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): [Teacher!]!
+
+  """
+  fetch aggregated fields from the table: "teacher"
+  """
+  teacherAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): TeacherAggregate!
+
+  """fetch data from the table: "teacher" using primary key columns"""
+  teacherByPk(id: uuid!): Teacher
+
+  """
+  fetch data from the table: "teacher_classroom"
+  """
+  teacherClassroom(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): [TeacherClassroom!]!
+
+  """
+  fetch aggregated fields from the table: "teacher_classroom"
+  """
+  teacherClassroomAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): TeacherClassroomAggregate!
+
+  """
+  fetch data from the table: "teacher_classroom" using primary key columns
+  """
+  teacherClassroomByPk(classroomId: uuid!, teacherId: uuid!): TeacherClassroom
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "classroom"
+  """
+  classroom(
+    """distinct select on columns"""
+    distinctOn: [ClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): [Classroom!]!
+
+  """
+  fetch aggregated fields from the table: "classroom"
+  """
+  classroomAggregate(
+    """distinct select on columns"""
+    distinctOn: [ClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [ClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): ClassroomAggregate!
+
+  """fetch data from the table: "classroom" using primary key columns"""
+  classroomByPk(id: uuid!): Classroom
+
+  """
+  fetch data from the table in a streaming manner: "classroom"
+  """
+  classroomStream(
+    """maximum number of rows returned in a single batch"""
+    batchSize: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [ClassroomStreamCursorInput]!
+
+    """filter the rows returned"""
+    where: ClassroomBoolExp
+  ): [Classroom!]!
+
+  """
+  fetch data from the table: "org_unit"
+  """
+  orgUnit(
+    """distinct select on columns"""
+    distinctOn: [OrgUnitSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [OrgUnitOrderBy!]
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): [OrgUnit!]!
+
+  """
+  fetch aggregated fields from the table: "org_unit"
+  """
+  orgUnitAggregate(
+    """distinct select on columns"""
+    distinctOn: [OrgUnitSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [OrgUnitOrderBy!]
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): OrgUnitAggregate!
+
+  """fetch data from the table: "org_unit" using primary key columns"""
+  orgUnitByPk(id: uuid!): OrgUnit
+
+  """
+  fetch data from the table in a streaming manner: "org_unit"
+  """
+  orgUnitStream(
+    """maximum number of rows returned in a single batch"""
+    batchSize: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [OrgUnitStreamCursorInput]!
+
+    """filter the rows returned"""
+    where: OrgUnitBoolExp
+  ): [OrgUnit!]!
+
+  """
+  fetch data from the table: "teacher"
+  """
+  teacher(
+    """distinct select on columns"""
+    distinctOn: [TeacherSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): [Teacher!]!
+
+  """
+  fetch aggregated fields from the table: "teacher"
+  """
+  teacherAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): TeacherAggregate!
+
+  """fetch data from the table: "teacher" using primary key columns"""
+  teacherByPk(id: uuid!): Teacher
+
+  """
+  fetch data from the table: "teacher_classroom"
+  """
+  teacherClassroom(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): [TeacherClassroom!]!
+
+  """
+  fetch aggregated fields from the table: "teacher_classroom"
+  """
+  teacherClassroomAggregate(
+    """distinct select on columns"""
+    distinctOn: [TeacherClassroomSelectColumn!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    orderBy: [TeacherClassroomOrderBy!]
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): TeacherClassroomAggregate!
+
+  """
+  fetch data from the table: "teacher_classroom" using primary key columns
+  """
+  teacherClassroomByPk(classroomId: uuid!, teacherId: uuid!): TeacherClassroom
+
+  """
+  fetch data from the table in a streaming manner: "teacher_classroom"
+  """
+  teacherClassroomStream(
+    """maximum number of rows returned in a single batch"""
+    batchSize: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [TeacherClassroomStreamCursorInput]!
+
+    """filter the rows returned"""
+    where: TeacherClassroomBoolExp
+  ): [TeacherClassroom!]!
+
+  """
+  fetch data from the table in a streaming manner: "teacher"
+  """
+  teacherStream(
+    """maximum number of rows returned in a single batch"""
+    batchSize: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [TeacherStreamCursorInput]!
+
+    """filter the rows returned"""
+    where: TeacherBoolExp
+  ): [Teacher!]!
+}
+
+input teacherAggregateBoolExpCount {
+  arguments: [TeacherSelectColumn!]
+  distinct: Boolean
+  filter: TeacherBoolExp
+  predicate: IntComparisonExp!
+}
+
+input teacherClassroomAggregateBoolExpCount {
+  arguments: [TeacherClassroomSelectColumn!]
+  distinct: Boolean
+  filter: TeacherClassroomBoolExp
+  predicate: IntComparisonExp!
+}
+
+scalar uuid
+
