@@ -811,6 +811,7 @@ type TeacherClassroom {
   """An object relationship"""
   classroom: Classroom!
   classroomId: uuid!
+  id: uuid!
 
   """An object relationship"""
   teacher: Teacher!
@@ -866,6 +867,7 @@ input TeacherClassroomBoolExp {
   _or: [TeacherClassroomBoolExp!]
   classroom: ClassroomBoolExp
   classroomId: UuidComparisonExp
+  id: UuidComparisonExp
   teacher: TeacherBoolExp
   teacherId: UuidComparisonExp
 }
@@ -875,7 +877,7 @@ unique or primary key constraints on table "teacher_classroom"
 """
 enum TeacherClassroomConstraint {
   """
-  unique or primary key constraint on columns "teacher_id", "classroom_id"
+  unique or primary key constraint on columns "id"
   """
   teacher_classroom_pkey
 }
@@ -886,6 +888,7 @@ input type for inserting data into table "teacher_classroom"
 input TeacherClassroomInsertInput {
   classroom: ClassroomObjRelInsertInput
   classroomId: uuid
+  id: uuid
   teacher: TeacherObjRelInsertInput
   teacherId: uuid
 }
@@ -893,6 +896,7 @@ input TeacherClassroomInsertInput {
 """aggregate max on columns"""
 type TeacherClassroomMaxFields {
   classroomId: uuid
+  id: uuid
   teacherId: uuid
 }
 
@@ -901,12 +905,14 @@ order by max() on columns of table "teacher_classroom"
 """
 input TeacherClassroomMaxOrderBy {
   classroomId: OrderBy
+  id: OrderBy
   teacherId: OrderBy
 }
 
 """aggregate min on columns"""
 type TeacherClassroomMinFields {
   classroomId: uuid
+  id: uuid
   teacherId: uuid
 }
 
@@ -915,6 +921,7 @@ order by min() on columns of table "teacher_classroom"
 """
 input TeacherClassroomMinOrderBy {
   classroomId: OrderBy
+  id: OrderBy
   teacherId: OrderBy
 }
 
@@ -942,14 +949,14 @@ input TeacherClassroomOnConflict {
 input TeacherClassroomOrderBy {
   classroom: ClassroomOrderBy
   classroomId: OrderBy
+  id: OrderBy
   teacher: TeacherOrderBy
   teacherId: OrderBy
 }
 
 """primary key columns input for table: teacher_classroom"""
 input TeacherClassroomPkColumnsInput {
-  classroomId: uuid!
-  teacherId: uuid!
+  id: uuid!
 }
 
 """
@@ -960,6 +967,9 @@ enum TeacherClassroomSelectColumn {
   classroomId
 
   """column name"""
+  id
+
+  """column name"""
   teacherId
 }
 
@@ -968,6 +978,7 @@ input type for updating data in table "teacher_classroom"
 """
 input TeacherClassroomSetInput {
   classroomId: uuid
+  id: uuid
   teacherId: uuid
 }
 
@@ -985,6 +996,7 @@ input TeacherClassroomStreamCursorInput {
 """Initial value of the column from where the streaming should start"""
 input TeacherClassroomStreamCursorValueInput {
   classroomId: uuid
+  id: uuid
   teacherId: uuid
 }
 
@@ -994,6 +1006,9 @@ update columns of table "teacher_classroom"
 enum TeacherClassroomUpdateColumn {
   """column name"""
   classroomId
+
+  """column name"""
+  id
 
   """column name"""
   teacherId
@@ -1260,7 +1275,7 @@ type mutation_root {
   """
   delete single row from the table: "teacher_classroom"
   """
-  deleteTeacherClassroomByPk(classroomId: uuid!, teacherId: uuid!): TeacherClassroom
+  deleteTeacherClassroomByPk(id: uuid!): TeacherClassroom
 
   """
   insert data into the table: "classroom"
@@ -1643,7 +1658,7 @@ type query_root {
   """
   fetch data from the table: "teacher_classroom" using primary key columns
   """
-  teacherClassroomByPk(classroomId: uuid!, teacherId: uuid!): TeacherClassroom
+  teacherClassroomByPk(id: uuid!): TeacherClassroom
 }
 
 type subscription_root {
@@ -1847,7 +1862,7 @@ type subscription_root {
   """
   fetch data from the table: "teacher_classroom" using primary key columns
   """
-  teacherClassroomByPk(classroomId: uuid!, teacherId: uuid!): TeacherClassroom
+  teacherClassroomByPk(id: uuid!): TeacherClassroom
 
   """
   fetch data from the table in a streaming manner: "teacher_classroom"
