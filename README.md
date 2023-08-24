@@ -55,6 +55,14 @@ that the Hasura rules should traverse.
 
 ## Tasks
 
+### test
+
+Run Go tests
+
+```
+go test ./...
+```
+
 ### introspect
 
 Introspect Hasura's schema and update the local `hasura.sdl.graphqls` file.
@@ -76,6 +84,18 @@ synth import \
   --from postgres://postgres:postgrespassword@localhost:15432/postgres \
   synth_workspace
 ```
+
+### synth_gen
+
+Generate fake data with Synth.
+
+```shell
+synth generate synth_workspace \
+  --scenario everything \
+  --size 1 | jq
+```
+
+<!-- links -->
 
 [hasura-perms]: https://hasura.io/docs/latest/auth/authorization/permissions/
 [permit-io]: https://permit.io

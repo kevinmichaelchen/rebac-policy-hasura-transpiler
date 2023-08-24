@@ -1,0 +1,34 @@
+query GetOrgUnits($userID: uuid!) {
+  orgUnit(
+    where: {
+      _or: [
+        # The user is a teacher of THIS org unit
+        {
+          teachers: {
+            id: {_eq: $userID}
+          }
+        }
+        # The user is a teacher of THIS org unit's "parent"
+        {
+          parent: {
+            teachers: {
+              id: {_eq: $userID}
+            }
+          }
+        }
+        # The user is a teacher of THIS org unit's "grandparent"
+        {
+          parent: {
+            parent: {
+              teachers: {
+                id: {_eq: $userID}
+              }
+            }
+          }
+        }
+      ]
+    }
+  ) {
+    __typename
+  }
+}

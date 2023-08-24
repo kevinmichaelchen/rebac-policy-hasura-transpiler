@@ -1,5 +1,16 @@
 package main
 
+import (
+	_ "embed"
+)
+
+//go:embed test.graphql
+var s string
+
+func main() {
+
+}
+
 type Relationship struct {
 	// e.g., "org_unit:5"
 	Subject string `json:"subject"`

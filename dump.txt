@@ -1,0 +1,257 @@
+&ast.Document{
+  Definitions: []ast.Node{
+    &ast.OperationDefinition{
+      Kind: "OperationDefinition",
+      Operation: "query",
+      Name: &ast.Name{
+        Kind: "Name",
+        Value: "GetOrgUnits",
+      },
+      VariableDefinitions: []*ast.VariableDefinition{
+        &ast.VariableDefinition{
+          Kind: "VariableDefinition",
+          Variable: &ast.Variable{
+            Kind: "Variable",
+            Name: &ast.Name{
+              Kind: "Name",
+              Value: "userID",
+            },
+          },
+          Type: &ast.NonNull{
+            Kind: "NonNull",
+            Type: &ast.Named{
+              Kind: "Named",
+              Name: &ast.Name{
+                Kind: "Name",
+                Value: "uuid",
+              },
+            },
+          },
+          DefaultValue: nil,
+        },
+      },
+      Directives: []*ast.Directive{}, // p1
+      SelectionSet: &ast.SelectionSet{
+        Kind: "SelectionSet",
+        Selections: []ast.Selection{
+          &ast.Field{
+            Kind: "Field",
+            Alias: nil,
+            Name: &ast.Name{
+              Kind: "Name",
+              Value: "orgUnit",
+            },
+            Arguments: []*ast.Argument{
+              &ast.Argument{
+                Kind: "Argument",
+                Name: &ast.Name{
+                  Kind: "Name",
+                  Value: "where",
+                },
+                Value: &ast.ObjectValue{
+                  Kind: "ObjectValue",
+                  Fields: []*ast.ObjectField{
+                    &ast.ObjectField{
+                      Kind: "ObjectField",
+                      Name: &ast.Name{
+                        Kind: "Name",
+                        Value: "_or",
+                      },
+                      Value: &ast.ListValue{
+                        Kind: "ListValue",
+                        Values: []ast.Value{
+                          &ast.ObjectValue{
+                            Kind: "ObjectValue",
+                            Fields: []*ast.ObjectField{
+                              &ast.ObjectField{
+                                Kind: "ObjectField",
+                                Name: &ast.Name{
+                                  Kind: "Name",
+                                  Value: "teachers",
+                                },
+                                Value: &ast.ObjectValue{
+                                  Kind: "ObjectValue",
+                                  Fields: []*ast.ObjectField{
+                                    &ast.ObjectField{
+                                      Kind: "ObjectField",
+                                      Name: &ast.Name{
+                                        Kind: "Name",
+                                        Value: "id",
+                                      },
+                                      Value: &ast.ObjectValue{
+                                        Kind: "ObjectValue",
+                                        Fields: []*ast.ObjectField{
+                                          &ast.ObjectField{
+                                            Kind: "ObjectField",
+                                            Name: &ast.Name{
+                                              Kind: "Name",
+                                              Value: "_eq",
+                                            },
+                                            Value: &ast.Variable{
+                                              Kind: "Variable",
+                                              Name: &ast.Name{
+                                                Kind: "Name",
+                                                Value: "userID",
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          &ast.ObjectValue{
+                            Kind: "ObjectValue",
+                            Fields: []*ast.ObjectField{
+                              &ast.ObjectField{
+                                Kind: "ObjectField",
+                                Name: &ast.Name{
+                                  Kind: "Name",
+                                  Value: "parent",
+                                },
+                                Value: &ast.ObjectValue{
+                                  Kind: "ObjectValue",
+                                  Fields: []*ast.ObjectField{
+                                    &ast.ObjectField{
+                                      Kind: "ObjectField",
+                                      Name: &ast.Name{
+                                        Kind: "Name",
+                                        Value: "teachers",
+                                      },
+                                      Value: &ast.ObjectValue{
+                                        Kind: "ObjectValue",
+                                        Fields: []*ast.ObjectField{
+                                          &ast.ObjectField{
+                                            Kind: "ObjectField",
+                                            Name: &ast.Name{
+                                              Kind: "Name",
+                                              Value: "id",
+                                            },
+                                            Value: &ast.ObjectValue{
+                                              Kind: "ObjectValue",
+                                              Fields: []*ast.ObjectField{
+                                                &ast.ObjectField{
+                                                  Kind: "ObjectField",
+                                                  Name: &ast.Name{
+                                                    Kind: "Name",
+                                                    Value: "_eq",
+                                                  },
+                                                  Value: &ast.Variable{
+                                                    Kind: "Variable",
+                                                    Name: &ast.Name{
+                                                      Kind: "Name",
+                                                      Value: "userID",
+                                                    },
+                                                  },
+                                                },
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          &ast.ObjectValue{
+                            Kind: "ObjectValue",
+                            Fields: []*ast.ObjectField{
+                              &ast.ObjectField{
+                                Kind: "ObjectField",
+                                Name: &ast.Name{
+                                  Kind: "Name",
+                                  Value: "parent",
+                                },
+                                Value: &ast.ObjectValue{
+                                  Kind: "ObjectValue",
+                                  Fields: []*ast.ObjectField{
+                                    &ast.ObjectField{
+                                      Kind: "ObjectField",
+                                      Name: &ast.Name{
+                                        Kind: "Name",
+                                        Value: "parent",
+                                      },
+                                      Value: &ast.ObjectValue{
+                                        Kind: "ObjectValue",
+                                        Fields: []*ast.ObjectField{
+                                          &ast.ObjectField{
+                                            Kind: "ObjectField",
+                                            Name: &ast.Name{
+                                              Kind: "Name",
+                                              Value: "teachers",
+                                            },
+                                            Value: &ast.ObjectValue{
+                                              Kind: "ObjectValue",
+                                              Fields: []*ast.ObjectField{
+                                                &ast.ObjectField{
+                                                  Kind: "ObjectField",
+                                                  Name: &ast.Name{
+                                                    Kind: "Name",
+                                                    Value: "id",
+                                                  },
+                                                  Value: &ast.ObjectValue{
+                                                    Kind: "ObjectValue",
+                                                    Fields: []*ast.ObjectField{
+                                                      &ast.ObjectField{
+                                                        Kind: "ObjectField",
+                                                        Name: &ast.Name{
+                                                          Kind: "Name",
+                                                          Value: "_eq",
+                                                        },
+                                                        Value: &ast.Variable{
+                                                          Kind: "Variable",
+                                                          Name: &ast.Name{
+                                                            Kind: "Name",
+                                                            Value: "userID",
+                                                          },
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            Directives: p1,
+            SelectionSet: &ast.SelectionSet{
+              Kind: "SelectionSet",
+              Selections: []ast.Selection{
+                &ast.Field{
+                  Kind: "Field",
+                  Alias: nil,
+                  Name: &ast.Name{
+                    Kind: "Name",
+                    Value: "__typename",
+                  },
+                  Arguments: []*ast.Argument{},
+                  Directives: p1,
+                  SelectionSet: nil,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}
