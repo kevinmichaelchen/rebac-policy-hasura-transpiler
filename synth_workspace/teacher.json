@@ -13,7 +13,9 @@
     "type": "object",
     "email": {
       "type": "string",
-      "pattern": "[a-zA-Z0-9]{0, 1}"
+      "faker": {
+        "generator": "free_email"
+      }
     },
     "id": {
       "type": "unique",
@@ -29,7 +31,9 @@
     },
     "name": {
       "type": "string",
-      "pattern": "[a-zA-Z0-9]{0, 1}"
+      "faker": {
+        "generator": "name"
+      }
     },
     "org_unit_id": {
       "type": "same_as",

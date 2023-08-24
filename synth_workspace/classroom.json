@@ -4,7 +4,7 @@
     "type": "number",
     "range": {
       "low": 0,
-      "high": 2,
+      "high": 100,
       "step": 1
     },
     "subtype": "u64"
