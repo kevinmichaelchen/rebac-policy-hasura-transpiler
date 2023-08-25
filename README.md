@@ -55,6 +55,14 @@ that the Hasura rules should traverse.
 
 ## Tasks
 
+### docs
+
+Run / watch docs.
+
+```
+mdbook watch --open docs
+```
+
 ### test
 
 Run Go tests

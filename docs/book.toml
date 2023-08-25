@@ -1,0 +1,6 @@
+[book]
+authors = ["Kevin Chen"]
+language = "en"
+multilingual = false
+src = "src"
+title = "ReBAC Hasura Transpiler"
