@@ -35,6 +35,12 @@ jobs:
         uses: peaceiris/actions-mdbook@v1
         with:
           mdbook-version: '0.4.34'
+      - name: Install mdbook-d2 from git
+        uses: baptiste0928/cargo-install@v2
+        with:
+          crate: mdbook-d2
+          git: https://github.com/danieleades/mdbook-d2
+          commit: 93f3037ad9730d134c929cfc90d9bd592a48a1a9
       - name: Build mdBook
         run: mdbook build docs
       - name: Setup Pages
