@@ -1,0 +1,90 @@
+{
+  "orgUnits": [
+    {
+      "id": 1,
+      "name": "US Dept of Education"
+    },
+    {
+      "id": 2,
+      "name": "NY State DoE",
+      "parent": 1
+    },
+    {
+      "id": 3,
+      "name": "NYC Public Schools",
+      "parent": 2
+    },
+    {
+      "id": 4,
+      "name": "NYC PS 46",
+      "parent": 3
+    },
+    {
+      "id": 5,
+      "name": "NYC PS 99",
+      "parent": 3
+    }
+  ],
+  "classrooms": [
+    {
+      "id": 1,
+      "orgUnitID": 4,
+      "name": "1st Period"
+    },
+    {
+      "id": 2,
+      "orgUnitID": 4,
+      "name": "2nd Period"
+    },
+    {
+      "id": 3,
+      "orgUnitID": 5,
+      "name": "1st Period"
+    },
+    {
+      "id": 4,
+      "orgUnitID": 5,
+      "name": "2nd Period"
+    }
+  ],
+  "teachers": [
+    {
+      "id": 1,
+      "orgUnitID": 4,
+      "name": "Alice"
+    },
+    {
+      "id": 2,
+      "orgUnitID": 4,
+      "name": "Bob"
+    },
+    {
+      "id": 3,
+      "orgUnitID": 5,
+      "name": "Celeste"
+    },
+    {
+      "id": 4,
+      "orgUnitID": 5,
+      "name": "Diego"
+    }
+  ],
+  "teacherClassrooms": [
+    {
+      "teacherID": 1,
+      "classroomID": 1
+    },
+    {
+      "teacherID": 2,
+      "classroomID": 2
+    },
+    {
+      "teacherID": 3,
+      "classroomID": 3
+    },
+    {
+      "teacherID": 4,
+      "classroomID": 4
+    }
+  ]
+}

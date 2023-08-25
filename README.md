@@ -1,6 +1,10 @@
 # rebac-policy-hasura-transpiler
 
-A CLI to transpile [ReBAC][rebac] policies to JSON for Hasura Permissions Rules.
+This project is an exploration into whether it's possible to transpile OPA policies (written in Rego) to the JSON that Hasura expects for its Permission Rules.
+
+I'm not even sure this is [possible](https://stackoverflow.com/questions/69413970/converting-rego-policy-to-json)...
+
+The end goal might be a CLI to transpile [ReBAC][rebac] policies to JSON for Hasura Permissions Rules.
 
 The policies themselves are inspired by [permit.io][permit-io]'s API.
 
@@ -63,6 +67,14 @@ Run / watch docs.
 mdbook watch --open docs
 ```
 
+### parse_rego
+
+Parse Rego policies to JSON.
+
+```
+./opa parse --format json opa-data/classroom_write_access.rego
+```
+
 ### test
 
 Run Go tests
@@ -76,7 +88,7 @@ go test ./...
 Prettify test JSON
 
 ```shell
-jq 'walk(if type == "object" and .Start then null else . end)' test.json > test.pretty.json
+jq 'del(..|nulls)' test.json > test.pretty.json
 ```
 
 ### introspect

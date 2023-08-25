@@ -17,8 +17,8 @@ func TestParse(t *testing.T) {
 	astDoc, err := parser.Parse(parser.ParseParams{
 		Source: s,
 		Options: parser.ParseOptions{
-			// include source, for error reporting
-			NoSource: false,
+			NoSource:   true,
+			NoLocation: true,
 		},
 	})
 	require.NoError(t, err)
@@ -65,7 +65,7 @@ func ASTToJSON(t *testing.T, a ast.Node) interface{} {
 	t.Helper()
 
 	// Serialize the AST Node
-	b, err := json.Marshal(a)
+	b, err := json.MarshalIndent(a, "", "  ")
 	require.NoError(t, err)
 
 	err = os.WriteFile("test.json", b, 0644)
