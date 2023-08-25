@@ -76,7 +76,7 @@ go test ./...
 Prettify test JSON
 
 ```shell
-jq 'walk(if type == "object" and .Start then null else . end)' test.json > test.pretty.json
+jq 'del(..|nulls)' test.json > test.pretty.json
 ```
 
 ### introspect
