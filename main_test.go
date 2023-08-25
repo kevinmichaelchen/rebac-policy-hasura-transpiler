@@ -2,10 +2,11 @@ package main
 
 import (
 	_ "embed"
+	"encoding/json"
 	"github.com/graphql-go/graphql/language/ast"
 	"github.com/graphql-go/graphql/language/parser"
-	"github.com/sanity-io/litter"
 	"github.com/stretchr/testify/require"
+	"os"
 	"testing"
 )
 
@@ -22,7 +23,7 @@ func TestParse(t *testing.T) {
 	})
 	require.NoError(t, err)
 
-	litter.Dump(astDoc)
+	//litter.Dump(astDoc)
 
 	require.Equal(t, "Document", astDoc.Kind)
 	require.NotEmpty(t, astDoc.Definitions)
@@ -47,11 +48,33 @@ func TestParse(t *testing.T) {
 	require.NotEmpty(t, args)
 
 	arg0 := args[0]
+
+	require.Equal(t, "where", arg0.Name.Value)
 	argValue := arg0.Value
-	ov := argValue.(*ast.ObjectValue)
 
 	// IMPORTANT: This is where the magic happens
-	// This is what the CLI will transpile to.
+	// This is what the CLI will transpile to: a JSON object.
+	ov := argValue.(*ast.ObjectValue)
+	ASTToJSON(t, ov)
+
 	fields := ov.Fields
 	require.NotEmpty(t, fields)
+}
+
+func ASTToJSON(t *testing.T, a ast.Node) interface{} {
+	t.Helper()
+
+	// Serialize the AST Node
+	b, err := json.Marshal(a)
+	require.NoError(t, err)
+
+	err = os.WriteFile("test.json", b, 0644)
+	require.NoError(t, err)
+
+	// De-serialize the AST Node
+	var f interface{}
+	err = json.Unmarshal(b, &f)
+	require.NoError(t, err)
+
+	return f
 }

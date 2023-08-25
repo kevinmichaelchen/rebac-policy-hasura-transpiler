@@ -63,6 +63,14 @@ Run Go tests
 go test ./...
 ```
 
+### prettify_json
+
+Prettify test JSON
+
+```shell
+jq 'walk(if type == "object" and .Start then null else . end)' test.json > test.pretty.json
+```
+
 ### introspect
 
 Introspect Hasura's schema and update the local `hasura.sdl.graphqls` file.
