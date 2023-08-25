@@ -1,5 +1,13 @@
 package main
 
+import (
+	_ "embed"
+)
+
+func main() {
+
+}
+
 type Relationship struct {
 	// e.g., "org_unit:5"
 	Subject string `json:"subject"`
